@@ -15,7 +15,7 @@ export const validationCheck = ({
     switch (validationType) {
       case "required":
         if (!value) {
-          return validationMessage || "Required";
+          return validationMessage || "Required field";
         }
         break;
       case "min":

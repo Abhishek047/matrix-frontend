@@ -15,6 +15,8 @@ interface Props {
   inputType: AllowedTextInputs;
   hasError?: boolean;
   onChange: (value: any, field: string) => void;
+  value: any;
+  defaultValue: string;
 }
 export const TextInput = ({
   label,
@@ -24,11 +26,14 @@ export const TextInput = ({
   inputType,
   hasError: _er = false,
   onChange,
+  value,
+  defaultValue,
 }: Props) => {
   return (
     <FormControl isInvalid={_er}>
       <FormLabel>{label}</FormLabel>
       <Input
+        value={value || defaultValue}
         onChange={(event) => onChange(event.target.value, name)}
         type={inputType}
       />

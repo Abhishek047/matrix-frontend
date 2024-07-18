@@ -16,6 +16,7 @@ export interface FormField {
     required?: boolean | Validation;
   };
   type: React.HTMLInputTypeAttribute;
+  defaultValue: any;
 }
 
 export interface FormFields {
