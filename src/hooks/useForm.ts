@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useState } from "react";
 import { validationCheck } from "../utils/functions";
 
@@ -14,6 +15,7 @@ export interface FormField {
     max?: number | Validation;
     required?: boolean | Validation;
   };
+  type: React.HTMLInputTypeAttribute;
 }
 
 export interface FormFields {
@@ -23,12 +25,12 @@ interface FormProps {
   formFields: FormFields;
   validationAfterChange?: boolean;
 }
-export const useForm = <T extends object>({
+export const useForm = ({
   formFields,
   validationAfterChange: _validationAfterChange = false,
 }: FormProps) => {
-  const [fieldState, setFieldState] = useState<T>();
-  const [errorState, setErrorState] = useState<T>();
+  const [fieldState, setFieldState] = useState({} as Record<string, any>);
+  const [errorState, setErrorState] = useState({} as Record<string, any>);
 
   const validateSingleField = useCallback(
     (fieldForValidation: string, valueToCheck: any) => {
