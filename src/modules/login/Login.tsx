@@ -1,4 +1,4 @@
-import { Stack, Text } from "@chakra-ui/react";
+import { Button, Stack, Text } from "@chakra-ui/react";
 import { FormFields, useForm } from "../../hooks/useForm";
 import { FormRender } from "../../components/forms/FormRender";
 
@@ -11,6 +11,7 @@ const INPUTS: FormFields = {
       required: true,
     },
     type: "email",
+    defaultValue: "",
   },
   password: {
     id: "password",
@@ -20,6 +21,7 @@ const INPUTS: FormFields = {
       required: true,
     },
     type: "password",
+    defaultValue: "",
   },
 };
 
@@ -27,14 +29,28 @@ const Login = () => {
   const { handleChange, fieldState, errorState, validate } = useForm({
     formFields: INPUTS,
   });
-  console.log(fieldState, errorState);
+  const handleSubmit = () => {
+    const isValid = validate();
+    if (!isValid) {
+      return;
+    }
+    console.log(fieldState);
+  };
   return (
     <div>
       <Stack gap={8}>
-        <Text size="xl">Login form</Text>
+        <Text fontSize="2xl">Login form</Text>
         {Object.values(INPUTS).map((value) => (
-          <FormRender key={value.id} input={value} onChange={handleChange} />
+          <FormRender
+            key={value.id}
+            input={value}
+            value={fieldState[value.id]}
+            error={errorState[value.id]}
+            defaultValue={value.defaultValue}
+            onChange={handleChange}
+          />
         ))}
+        <Button onClick={handleSubmit}>Submit</Button>
       </Stack>
     </div>
   );
