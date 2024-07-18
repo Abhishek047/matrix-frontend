@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <div>
       <Stack gap={8}>
-        <Text size="2xl">Login form</Text>
+        <Text fontSize="2xl">Login form</Text>
         {Object.values(INPUTS).map((value) => (
           <FormRender
             key={value.id}
