@@ -1,6 +1,7 @@
 import Home from "../modules/home/Home";
 import { Dashboard } from "../modules/dashboard/Dashboard";
 import SignUp from "../modules/signUp/SignUp";
+import Login from "../modules/login/Login";
 
 export type RouteConfig = {
   id: number;
@@ -39,7 +40,7 @@ export const routerConfiguration: RouteConfig[] = [
   {
     id: 4,
     path: ROUTES.LOGIN,
-    Component: SignUp,
+    Component: Login,
     isPublic: true,
   },
 ];
