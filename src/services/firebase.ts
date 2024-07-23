@@ -1,6 +1,12 @@
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth } from "firebase/auth";
+import {
+  browserLocalPersistence,
+  connectAuthEmulator,
+  getAuth,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import {
   deleteObject,
   getDownloadURL,
@@ -24,6 +30,7 @@ const authEmulator = "http://127.0.0.1:9099";
 
 // Configure Auth emulator (if needed)
 export const auth = getAuth(app);
+
 if (window.location.hostname === "localhost") {
   connectAuthEmulator(auth, authEmulator);
 }
@@ -91,5 +98,13 @@ export const deleteFile = async (url: string) => {
     return true;
   }
 };
-
+export const loginWithPassword = async (email: string, password: string) => {
+  await setPersistence(auth, browserLocalPersistence);
+  const userDetails = await signInWithEmailAndPassword(auth, email, password);
+  return userDetails;
+};
+export const logOut = async () => {
+  await auth.signOut();
+  return true;
+};
 export default app;
