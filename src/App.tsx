@@ -1,12 +1,12 @@
-import { Container } from "@chakra-ui/react";
+import "./index.css";
 import { Provider as RouteProvider } from "./router/Router";
 import "./services/firebase";
 
 function App() {
   return (
-    <Container>
+    <div>
       <RouteProvider />
-    </Container>
+    </div>
   );
 }
 

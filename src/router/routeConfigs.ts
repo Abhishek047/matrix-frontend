@@ -9,12 +9,13 @@ export type RouteConfig = {
   Component: React.FunctionComponent;
   isPublic?: boolean;
   isPrivate?: boolean;
+  hideAfterLogin: boolean;
 };
 
 export const ROUTES = {
   HOME: "/",
   DASHBOARD: "/dashboard",
-  SIGNUP: "/sign-up",
+  SIGN_UP: "/sign-up",
   LOGIN: "/login",
 };
 
@@ -24,23 +25,27 @@ export const routerConfiguration: RouteConfig[] = [
     path: ROUTES.HOME,
     Component: Home,
     isPrivate: true,
+    hideAfterLogin: false,
   },
   {
     id: 2,
     path: ROUTES.DASHBOARD,
     Component: Dashboard,
     isPrivate: true,
+    hideAfterLogin: false,
   },
   {
     id: 3,
-    path: ROUTES.SIGNUP,
+    path: ROUTES.SIGN_UP,
     Component: SignUp,
     isPublic: true,
+    hideAfterLogin: true,
   },
   {
     id: 4,
     path: ROUTES.LOGIN,
     Component: Login,
     isPublic: true,
+    hideAfterLogin: true,
   },
 ];

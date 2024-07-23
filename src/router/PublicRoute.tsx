@@ -1,9 +1,22 @@
+import { RouteConfig, ROUTES } from "./routeConfigs";
+import { useUser } from "../hooks/useUser";
+import { Loader } from "../components/ui/Loader";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { RouteConfig } from "./routeConfigs";
 
-export const PublicRoute = ({ Component }: RouteConfig) => {
+export const PublicRoute = ({ Component, hideAfterLogin }: RouteConfig) => {
+  const { user, loadingFirebaseUser } = useUser();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    console.log("isPublic");
-  }, []);
+    if (user && !loadingFirebaseUser && hideAfterLogin) {
+      navigate(ROUTES.HOME);
+    }
+  }, [loadingFirebaseUser, user, navigate, hideAfterLogin]);
+
+  if (loadingFirebaseUser) {
+    return <Loader fill="full" />;
+  }
+
   return <Component />;
 };
