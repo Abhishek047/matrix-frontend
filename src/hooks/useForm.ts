@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useState } from "react";
 import { validationCheck } from "../utils/functions";
 
@@ -26,12 +25,12 @@ interface FormProps {
   formFields: FormFields;
   validationAfterChange?: boolean;
 }
-export const useForm = ({
+export const useForm = <T extends object>({
   formFields,
   validationAfterChange: _validationAfterChange = false,
 }: FormProps) => {
-  const [fieldState, setFieldState] = useState({} as Record<string, any>);
-  const [errorState, setErrorState] = useState({} as Record<string, any>);
+  const [fieldState, setFieldState] = useState({} as T);
+  const [errorState, setErrorState] = useState({} as T);
 
   const validateSingleField = useCallback(
     (fieldForValidation: string, valueToCheck: any) => {
@@ -81,9 +80,10 @@ export const useForm = ({
         fieldsToCheck = Object.keys(formFields);
       }
       if (fieldsToCheck) {
-        const newErrorState = { ...errorState };
+        const newErrorState: Record<string, any> = { ...errorState };
         fieldsToCheck.forEach((key: string) => {
-          const valueToCheck = value || fieldState[key];
+          const kayVal = key as keyof T;
+          const valueToCheck = value || fieldState[kayVal];
           const error = validateSingleField(key, valueToCheck);
           if (error) {
             noErrors = false;
@@ -91,7 +91,7 @@ export const useForm = ({
           } else {
             delete newErrorState[key];
           }
-          setErrorState(newErrorState);
+          setErrorState(newErrorState as T);
         });
       }
       return noErrors;
@@ -104,7 +104,7 @@ export const useForm = ({
       try {
         if (formFields[fieldId]) {
           const newFieldState = { ...fieldState };
-          newFieldState[fieldId] = value;
+          newFieldState[fieldId as keyof T] = value;
           setFieldState(newFieldState);
         } else {
           console.log("no-form-found");
