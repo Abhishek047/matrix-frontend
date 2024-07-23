@@ -54,6 +54,11 @@ export const Navbar = () => {
                 fontSize={"sm"}
                 fontWeight={400}
                 variant="ghost"
+                color={"pink.400"}
+                _hover={{
+                  bg: "pink.100",
+                  color: "black",
+                }}
               >
                 Log out
               </Button>
