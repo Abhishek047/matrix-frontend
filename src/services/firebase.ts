@@ -14,6 +14,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { AUTH_TOKEN_LS } from "../utils/constants";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA8_XdOtbR9-jrLehX17pVo-Rc0o1Y3bJw",
@@ -105,6 +106,7 @@ export const loginWithPassword = async (email: string, password: string) => {
 };
 export const logOut = async () => {
   await auth.signOut();
+  localStorage.removeItem(AUTH_TOKEN_LS);
   return true;
 };
 export default app;
